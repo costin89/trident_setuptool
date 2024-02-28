@@ -78,18 +78,19 @@
     </center>
     <script>
         document.getElementById("generateBtn").addEventListener("click", function() {
-            const formData = {
-                ip: document.getElementById("ip").value,
-                port: document.getElementById("port").value,
-                click: document.getElementById("click").value,
-                tracker_1: document.getElementById("tracker_1").value,
-                tracker_2: document.getElementById("tracker_2").value,
-                tracker_3: document.getElementById("tracker_3").value,
-                tracker_4: document.getElementById("tracker_4").value,
-                tracker_5: document.getElementById("tracker_5").value,
-                tracker_6: document.getElementById("tracker_6").value,
-            };
+            // Liste aller Felder, die überprüft werden sollen
+            const fields = ['ip', 'port', 'click', 'tracker_1', 'tracker_2', 'tracker_3', 'tracker_4', 'tracker_5', 'tracker_6'];
 
+            // Objekt, das die Formulardaten sammelt
+            const formData = {};
+
+            // Überprüfung und Sammlung der Formulardaten
+            fields.forEach(function(field) {
+                const value = document.getElementById(field).value;
+                formData[field] = value.trim() === '' ? 'none' : value; // Fügt "none" ein, falls das Feld leer ist
+            });
+
+            // Konvertierung der Daten in einen String für den Download
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(formData));
             const dlAnchorElem = document.createElement('a');
             dlAnchorElem.setAttribute("href",     dataStr     );
